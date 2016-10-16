@@ -32,9 +32,9 @@ int hubID = 41; // the receiver for all sensor nodes in this example
 // instead of sending a string, we can send a struct
 // this struct must be shared between all nodes
 typedef struct {
-  float posX;
-  float posY;
-  float posZ;
+  int posX;
+  int posY;
+  int posZ;
 } Packet;
 
 /*
@@ -145,9 +145,9 @@ void loop()
   // create new instance of our Packet struct
   Packet packet;
   //packet.sensor0 = analogRead(A0); // read values from the analog pins
-  packet.posX = (float)event.orientation.x;
-  packet.posY = (float)event.orientation.y;
-  packet.posZ = (float)event.orientation.z;
+  packet.posX = floor((float)event.orientation.x);
+  packet.posY = floor((float)event.orientation.y);
+  packet.posZ = floor((float)event.orientation.z);
 
   int numberOfRetries = 5;
 
