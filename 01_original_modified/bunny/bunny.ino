@@ -96,9 +96,11 @@ void loop()
 
   /* The processing sketch expects data as roll, pitch, heading */
   //Serial.print(F("Orientation: "));
-  Serial.println((float)event.orientation.x);
+  Serial.print((float)event.orientation.x);
+  Serial.print(", ");
   //Serial.print(F(" "));
-  Serial.println((float)event.orientation.y);
+  Serial.print((float)event.orientation.y);
+  Serial.print(", ");
   //Serial.print(F(" "));
   Serial.println((float)event.orientation.z);
   //Serial.println(F(""));

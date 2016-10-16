@@ -6,8 +6,10 @@
 //october 2016
 //based on code from tom arduino.cc
 //https://www.arduino.cc/en/Tutorial/Graph
+//and parsing info from
+//https://www.processing.org/reference/split_.html
 
- // Graphing sketch
+// Graphing sketch
 
 
 // This program takes ASCII-encoded strings
@@ -67,10 +69,25 @@ void serialEvent (Serial myPort) {
   if (inString != null) {
     // trim off any whitespace:
     inString = trim(inString);
+
+    float[] numbers = float(split(inString, ','));
+    
+    for (int i = 0; i < numbers.length; i++) {
+      //numbers[i] = float(numbers[i]);
+      if (i == 0) {
+        print("x: ");
+      } else if (i == 1) {
+        print("y: ");
+      } else if (i == 2) {
+        print("z: ");
+      }
+      println(numbers[i]);
+    }
+
     // convert to an int and map to the screen height:
-    inByte = float(inString);
-    println(inByte);
-    inByte = map(inByte, 0, 1023, 0, height);
+    //inByte = float(inString);
+    //println(inByte);
+    //inByte = map(inByte, 0, 1023, 0, height);
   }
 }
 
