@@ -19,3 +19,8 @@ them on my local machine, i do on the command line
 caution:
 * cd github/bigscreen
 is only necessary if you open the terminal from scratch
+
+## how to install
+
+[this is a link](http://www.google.com)
+it doesn't work cause
