@@ -9,20 +9,20 @@
   To make parsing packets easier, data is sent using the C++ struct.
   This allows both sender and receiver to read and write to the packet
   using the familiar object-dot-variable syntax.
-  
+
   See the "wiring_rfm69.png" for how to hookup the circuit.
-  
+
   To complete the example, run the "sensor_send.ino" sketch,
   or the "sensor_send_lowpower.ino" sketch
   on another Arduino with an RFm69 connected
-  
+
   Be sure you have downloaded and installed the library used here:
-  
+
     RFm69 Library: https://github.com/lowpowerlab/rfm69
 
   Created 24 March 2015
   By Andy Sigler
-  
+
 */
 
 ///////////////////////////
@@ -55,7 +55,7 @@ void setup() {
 
   // setup the radio
   radio.initialize(myFrequency, myID, myNetwork);
-    
+
   Serial.println("\nRADIO INITIALIZED\n");
   Serial.println("Listening for sensor nodes...");
 }
@@ -65,31 +65,32 @@ void setup() {
 ///////////////////////////
 
 void loop() {
-    
+
   // always check to see if we've received a message
   if (radio.receiveDone()) {
-              
+
     // if the received message is the same size as our pre-defined Packet struct
     // then assume that it is actually one of our Packets
-    if(radio.DATALEN == sizeof(Packet)) {  
-      
+    if (radio.DATALEN == sizeof(Packet)) {
+
       // convert the radio's raw byte array to our pre-defined Packet struct
       Packet newPacket = *(Packet*)radio.DATA;
       int senderID = radio.SENDERID;
-      
+
       // if requested, acknowledge that the packet was received
-      if (radio.ACKRequested()){
+      if (radio.ACKRequested()) {
         radio.sendACK();
       }
-      
-      Serial.print("(");
-      Serial.print(senderID);
-      Serial.print(")\t");
+
+      // Serial.print("(");
+      //Serial.print(senderID);
+
       Serial.print(newPacket.sensor0);
-      Serial.print("\t");
+      Serial.print(", ");
       Serial.print(newPacket.sensor1);
-      Serial.print("\t");
-      Serial.println(newPacket.sensor2);
+      Serial.print(", ");
+      Serial.print(newPacket.sensor2);
+      Serial.print("\n");
     }
     else {
       Serial.println("got unknown packet!");
