@@ -59,8 +59,8 @@ void setup() {
   // this example only uses Serial inside setup()
   // because Narcoleptic will stop Serial once used
   Serial.begin(9600);
-  //Serial.println("\nRADIO INITIALIZED");
-  //Serial.println("Sending sensor values");
+  Serial.println("\nRADIO INITIALIZED");
+  Serial.println("Sending sensor values");
 }
 
 void loop() {

@@ -35,8 +35,8 @@
 RFM69 radio;
 
 #define myFrequency RF69_915MHZ // or RF69_433MHZ (check your radio)
-int myNetwork = 200; // radios must share the same network (0-255)
-int myID = 41; // radios should be given unique ID's (0-254, 255 = BROADCAST)
+int myNetwork = 1; // radios must share the same network (0-255)
+int myID = 0; // radios should be given unique ID's (0-254, 255 = BROADCAST)
 
 // our pre-defined packet structure
 // this struct must be shared between all nodes
@@ -51,7 +51,7 @@ typedef struct {
 ///////////////////////////
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   while (!Serial) {
     ;

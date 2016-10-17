@@ -44,16 +44,16 @@ Adafruit_BNO055 bno = Adafruit_BNO055(55);
 void displaySensorDetails(void)
 {
   sensor_t sensor;
-  bno.getSensor(&sensor);
-  Serial.println("------------------------------------");
-  Serial.print  ("Sensor:       "); Serial.println(sensor.name);
-  Serial.print  ("Driver Ver:   "); Serial.println(sensor.version);
-  Serial.print  ("Unique ID:    "); Serial.println(sensor.sensor_id);
-  Serial.print  ("Max Value:    "); Serial.print(sensor.max_value); Serial.println(" xxx");
-  Serial.print  ("Min Value:    "); Serial.print(sensor.min_value); Serial.println(" xxx");
-  Serial.print  ("Resolution:   "); Serial.print(sensor.resolution); Serial.println(" xxx");
-  Serial.println("------------------------------------");
-  Serial.println("");
+  //bno.getSensor(&sensor);
+//  Serial.println("------------------------------------");
+//  Serial.print  ("Sensor:       "); Serial.println(sensor.name);
+//  Serial.print  ("Driver Ver:   "); Serial.println(sensor.version);
+//  Serial.print  ("Unique ID:    "); Serial.println(sensor.sensor_id);
+//  Serial.print  ("Max Value:    "); Serial.print(sensor.max_value); Serial.println(" xxx");
+//  Serial.print  ("Min Value:    "); Serial.print(sensor.min_value); Serial.println(" xxx");
+//  Serial.print  ("Resolution:   "); Serial.print(sensor.resolution); Serial.println(" xxx");
+//  Serial.println("------------------------------------");
+//  Serial.println("");
   delay(500);
 }
 
@@ -61,8 +61,8 @@ void displaySensorDetails(void)
 
 void setup()
 {
-  Serial.begin(115200);
-  Serial.println("Orientation Sensor Test"); Serial.println("");
+  Serial.begin(9600);
+  Serial.println("*"); Serial.println("");
 
   /* Initialise the sensor */
   if (!bno.begin())
@@ -74,7 +74,7 @@ void setup()
 
   delay(1000);
 
-  displaySensorDetails();
+ // displaySensorDetails();
 }
 
 void loop()
@@ -105,17 +105,6 @@ void loop()
   Serial.println((float)event.orientation.z);
   //Serial.println(F(""));
 
-  /* Also send calibration data for each sensor. */
-//  uint8_t sys, gyro, accel, mag = 0;
-//  bno.getCalibration(&sys, &gyro, &accel, &mag);
-//  Serial.print(F("Calibration: "));
-//  Serial.print(sys, DEC);
-//  Serial.print(F(" "));
-//  Serial.print(gyro, DEC);
-//  Serial.print(F(" "));
-//  Serial.print(accel, DEC);
-//  Serial.print(F(" "));
-//  Serial.println(mag, DEC);
 
   delay(BNO055_SAMPLERATE_DELAY_MS);
 }

@@ -23,11 +23,11 @@
 RFM69 radio;
 
 #define myFrequency RF69_915MHZ // or RF69_433MHZ (check your radio)
-int myNetwork = 200; // radios must share the same network (0-255)
-int myID = 40; // radios should be given unique ID's (0-254, 255 = BROADCAST)
+int myNetwork = 1; // radios must share the same network (0-255)
+int myID = 1; // radios should be given unique ID's (0-254, 255 = BROADCAST)
 
 
-int hubID = 41; // the receiver for all sensor nodes in this example
+int hubID = 0; // the receiver for all sensor nodes in this example
 
 // instead of sending a string, we can send a struct
 // this struct must be shared between all nodes
@@ -55,7 +55,7 @@ Connect GROUND to common ground
 */
 
 /* Set the delay between fresh samples */
-#define BNO055_SAMPLERATE_DELAY_MS (100)
+#define BNO055_SAMPLERATE_DELAY_MS (300)
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
@@ -80,7 +80,9 @@ void displaySensorDetails(void)
 
 void setup()
 {
-  Serial.begin(115200);
+  radio.initialize(myFrequency, myID, myNetwork);
+  
+  Serial.begin(9600);
   Serial.println("Orientation Sensor Test"); Serial.println("");
 
   /* Initialise the sensor */
@@ -93,10 +95,10 @@ void setup()
 
   delay(1000);
 
-  displaySensorDetails();
+  //displaySensorDetails();
 
   // setup the radio
-  radio.initialize(myFrequency, myID, myNetwork);
+  
 }
 
 void loop()
@@ -117,15 +119,15 @@ void loop()
   */
 
   /* The processing sketch expects data as roll, pitch, heading */
-  //Serial.print(F("Orientation: "));
-  Serial.print((float)event.orientation.x);
-  Serial.print(", ");
-  //Serial.print(F(" "));
-  Serial.print((float)event.orientation.y);
-  Serial.print(", ");
-  //Serial.print(F(" "));
-  Serial.println((float)event.orientation.z);
-  //Serial.println(F(""));
+//  //Serial.print(F("Orientation: "));
+//  Serial.print((float)event.orientation.x);
+//  Serial.print(", ");
+//  //Serial.print(F(" "));
+//  Serial.print((float)event.orientation.y);
+//  Serial.print(", ");
+//  //Serial.print(F(" "));
+//  Serial.println((float)event.orientation.z);
+//  //Serial.println(F(""));
 
   /* Also send calibration data for each sensor. */
   //  uint8_t sys, gyro, accel, mag = 0;
@@ -139,7 +141,7 @@ void loop()
   //  Serial.print(F(" "));
   //  Serial.println(mag, DEC);
 
-  delay(BNO055_SAMPLERATE_DELAY_MS);
+ // delay(BNO055_SAMPLERATE_DELAY_MS);
 
 
   // create new instance of our Packet struct
@@ -153,9 +155,9 @@ void loop()
 
   // send reliable packet to the hub
   // notice the & next to packet when sending a struct
-  boolean gotACK = radio.sendWithRetry(hubID,  &packet, sizeof(packet), numberOfRetries);
+ radio.send(hubID,  &packet, sizeof(packet), numberOfRetries);
 
-
+delay(500);
 
 
 }
