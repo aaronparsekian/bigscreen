@@ -1,4 +1,8 @@
 #include <RFM69.h>
+#include <RFM69_ATC.h>
+#include <RFM69registers.h>
+
+//#include <RFM69.h>
 #include <SPI.h> // the RFM69 library uses SPI
 
 
@@ -8,6 +12,11 @@ int ledPin = 13;
 RFM69 radio;
 
 #define myFrequency RF69_915MHZ // or RF69_433MHZ (check your radio)
+#define IS_RFM69HCW   true 
+#define RFM69_CS      8
+#define RFM69_IRQ     7
+#define RFM69_IRQN    4  // Pin 7 is IRQ 4!
+#define RFM69_RST     4
 int myNetwork = 147; // radios must share the same network (0-255)
 int myID = 0; // radios should be given unique ID's (0-254, 255 = BROADCAST)
 
@@ -27,7 +36,7 @@ void setup() {
 
   pinMode(ledPin, OUTPUT);
 
-  // Serial.println("\nRADIO INITIALIZED\n");
+   Serial.println("\nRADIO INITIALIZED\n");
   // Serial.println("Listening for sensor nodes...");
 }
 
