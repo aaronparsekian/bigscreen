@@ -56,8 +56,8 @@ void setup() {
   // setup the radio
   radio.initialize(myFrequency, myID, myNetwork);
 
-  Serial.println("\nRADIO INITIALIZED\n");
-  Serial.println("Listening for sensor nodes...");
+  //Serial.println("\nRADIO INITIALIZED\n");
+  //Serial.println("Listening for sensor nodes...");
 }
 
 ///////////////////////////
@@ -86,15 +86,15 @@ void loop() {
       //Serial.print(senderID);
 
       Serial.print(newPacket.sensor0);
-      Serial.print(", ");
+      Serial.print(",");
       Serial.print(newPacket.sensor1);
-      Serial.print(", ");
-      Serial.print(newPacket.sensor2);
-      Serial.print("\n");
+      Serial.print(",");
+      Serial.println(newPacket.sensor2);
+      //Serial.print("\n");
     }
-    else {
-      Serial.println("got unknown packet!");
-    }
+    //    else {
+    //     // Serial.println("got unknown packet!");
+    //    }
   }
 }
 
