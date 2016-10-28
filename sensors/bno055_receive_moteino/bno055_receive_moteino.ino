@@ -26,33 +26,24 @@
 */
 
 ///////////////////////////
-///////////////////////////
+//////////BIG SCREENS 2016 BNO055 TX//////////////
 ///////////////////////////
 
 #include <RFM69.h>
 #include <SPI.h> // the RFM69 library uses SPI
 
-//RFM69 radio;
+RFM69 radio;
 
 #define myFrequency RF69_915MHZ // or RF69_433MHZ (check your radio)
-//#define IS_RFM69HCW   true
-/* for Feather 32u4 */
-//#define RFM69_CS      8
-//#define RFM69_IRQ     7
-//#define RFM69_IRQN    4  // Pin 7 is IRQ 4!
-//#define RFM69_RST     4
-
-RFM69 radio; // = RFM69(RFM69_CS, RFM69_IRQ, IS_RFM69HCW, RFM69_IRQN);
-
-int myNetwork = 214; // radios must share the same network (0-255)
-int myID = 0; // radios should be given unique ID's (0-254, 255 = BROADCAST)
+int myNetwork = 1; // radios must share the same network (0-255)
+int myID = 5; // radios should be given unique ID's (0-254, 255 = BROADCAST)
 
 // our pre-defined packet structure
 // this struct must be shared between all nodes
 typedef struct {
   int sensor0;
   int sensor1;
-  //int sensor2;
+  int sensor2;
 } Packet;
 
 ///////////////////////////
@@ -60,7 +51,6 @@ typedef struct {
 ///////////////////////////
 
 void setup() {
-  while (!Serial);
   Serial.begin(9600);
 
   // setup the radio
@@ -91,17 +81,16 @@ void loop() {
       if (radio.ACKRequested()) {
         radio.sendACK();
       }
-//
-//      Serial.print("(");
-//      Serial.print(senderID);
-//      Serial.print(")\t");
+
+      // Serial.print("(");
+      //Serial.print(senderID);
 
       Serial.print(newPacket.sensor0);
-      Serial.print(",");
+      Serial.print(", ");
       Serial.print(newPacket.sensor1);
+      Serial.print(", ");
+      Serial.print(newPacket.sensor2);
       Serial.print("\n");
-     // Serial.print("\t");
-     // Serial.println(newPacket.sensor2);
     }
     else {
       Serial.println("got unknown packet!");
