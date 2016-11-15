@@ -1,1 +1,1 @@
-Sensor,myNetwork,myID,hubID,USB Serial,,,,BNO055,1,6,5,/dev/cu.usbserial-DA01I684,,,,Polar Sensor,113,8,7,/dev/cu.usbserial-DA01I68A,,,,EMG Sensors,214,9,0,/dev/cu.usbserial-DA01I920
+Sensor,myNetwork,myID,hubID,USB Serial,Carrier Freq,,,,,EMG Sensors 1,1,6,5,/dev/cu.usbserial-DA01I684,914MHz,,,,,Polar Sensor,113,8,7,/dev/cu.usbserial-DA01I68A,915MHz,,,,,EMG Sensors 2,214,9,0,/dev/cu.usbserial-DA01I920,916MHz

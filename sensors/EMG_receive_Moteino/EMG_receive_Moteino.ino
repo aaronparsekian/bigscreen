@@ -1,5 +1,5 @@
-///////////////////////////
-///////////////////////////
+////////////EMG 1 RX RX RX RX/////////
+///////////Big Screens 2016 Aaron Parsekian////////////////
 ///////////////////////////
 
 /*
@@ -25,24 +25,21 @@
 
 */
 
-///////////////////////////
-///////////////////////////
-///////////////////////////
-
 #include <RFM69.h>
 #include <SPI.h> // the RFM69 library uses SPI
 
-//RFM69 radio;
+RFM69 radio;
 
 #define myFrequency RF69_915MHZ // or RF69_433MHZ (check your radio)
-//#define IS_RFM69HCW   true
+//#define IS_RFM69HCW   false
 /* for Feather 32u4 */
 //#define RFM69_CS      8
 //#define RFM69_IRQ     7
 //#define RFM69_IRQN    4  // Pin 7 is IRQ 4!
 //#define RFM69_RST     4
 
-RFM69 radio; // = RFM69(RFM69_CS, RFM69_IRQ, IS_RFM69HCW, RFM69_IRQN);
+//RFM69 radio;
+//RFM69 radio = RFM69(RFM69_CS, RFM69_IRQ, IS_RFM69HCW, RFM69_IRQN);
 
 int myNetwork = 214; // radios must share the same network (0-255)
 int myID = 0; // radios should be given unique ID's (0-254, 255 = BROADCAST)
@@ -55,10 +52,6 @@ typedef struct {
   //int sensor2;
 } Packet;
 
-///////////////////////////
-///////////////////////////
-///////////////////////////
-
 void setup() {
   while (!Serial);
   Serial.begin(9600);
@@ -66,13 +59,9 @@ void setup() {
   // setup the radio
   radio.initialize(myFrequency, myID, myNetwork);
 
-//  Serial.println("\nRADIO INITIALIZED\n");
-//  Serial.println("Listening for sensor nodes...");
+  //  Serial.println("\nRADIO INITIALIZED\n");
+  //  Serial.println("Listening for sensor nodes...");
 }
-
-///////////////////////////
-///////////////////////////
-///////////////////////////
 
 void loop() {
 
@@ -91,24 +80,20 @@ void loop() {
       if (radio.ACKRequested()) {
         radio.sendACK();
       }
-//
-//      Serial.print("(");
-//      Serial.print(senderID);
-//      Serial.print(")\t");
+      //
+      //      Serial.print("(");
+      //      Serial.print(senderID);
+      //      Serial.print(")\t");
 
       Serial.print(newPacket.sensor0);
       Serial.print(",");
       Serial.println(newPacket.sensor1);
       //Serial.print("\n");
-     // Serial.print("\t");
-     // Serial.println(newPacket.sensor2);
+      // Serial.print("\t");
+      // Serial.println(newPacket.sensor2);
     }
     else {
       //Serial.println("got unknown packet!");
     }
   }
 }
-
-///////////////////////////
-///////////////////////////
-///////////////////////////
