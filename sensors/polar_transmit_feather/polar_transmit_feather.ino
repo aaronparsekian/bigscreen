@@ -1,8 +1,10 @@
+////////////Polar TX/////////
+///////////Big Screens 2016 Aaron Parsekian////////////////
 ///////////////////////////
-//////////BIG SCREENS 2016 POLAR TX//////////////
-///////////////////////////
-/*
+//////915MHz///////
+//Antenna is 3.07" (3-1/16")  / 7.8cm
 
+/*
   This sketch demonstrates a simple wireless hub
   listening for sensor packets from other nodes on this network.
   To make parsing packets easier, data is sent using the C++ struct.
@@ -23,21 +25,19 @@
   By Andy Sigler
 
 */
+
 #include <RFM69.h>
 #include <SPI.h> // the RFM69 library uses SPI
 
-
+/* for Feather 32u4 */
 #define IS_RFM69HCW   true
 #define RFM69_CS      8
 #define RFM69_IRQ     7
 #define RFM69_IRQN    4  // Pin 7 is IRQ 4!
 #define RFM69_RST     4
 
-RFM69 radio = RFM69(RFM69_CS, RFM69_IRQ, IS_RFM69HCW, RFM69_IRQN);
-
-
 #define myFrequency RF69_915MHZ // or RF69_433MHZ (check your radio)
-//Antenna is 3.07" (3-1/16")  / 7.8cm
+RFM69 radio = RFM69(RFM69_CS, RFM69_IRQ, IS_RFM69HCW, RFM69_IRQN);
 
 int myNetwork = 113; // radios must share the same network (0-255)
 int myID = 8; // radios should be given unique ID's (0-254, 255 = BROADCAST)
@@ -69,9 +69,9 @@ void setup() {
 
   // this example only uses Serial inside setup()
   // because Narcoleptic will stop Serial once used
-  Serial.begin(9600);
-  Serial.println("\nRADIO INITIALIZED");
-  Serial.println("Sending sensor values");
+ // Serial.begin(9600);
+ // Serial.println("\nRADIO INITIALIZED");
+ // Serial.println("Sending sensor values");
 
   ///////////////////////////
 
@@ -83,7 +83,6 @@ void setup() {
 
 void loop() {
 
-  //delay(50);
 
   heartBeat = digitalRead(heartPin);
 
@@ -108,11 +107,11 @@ void loop() {
   // send reliable packet to the hub
   // notice the & next to packet when sending a struct
   boolean gotACK = radio.sendWithRetry(hubID,  &packet, sizeof(packet), numberOfRetries);
-
-  if (gotACK) {
-    Serial.println("got acknowledgment");
-  }
-  else {
-    Serial.println("failed acknowledgment");
-  }
+  delay(2);
+//  if (gotACK) {
+//    Serial.println("got acknowledgment");
+//  }
+//  else {
+//    Serial.println("failed acknowledgment");
+//  }
 }

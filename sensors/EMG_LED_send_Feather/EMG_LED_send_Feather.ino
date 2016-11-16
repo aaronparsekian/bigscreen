@@ -1,6 +1,7 @@
-////////////EMG #1//////TX TX TX//////////
+////////////EMG 1 TX/////////
 ///////////Big Screens 2016 Aaron Parsekian////////////////
 ///////////////////////////
+//////913MHz///////
 
 /*
 
@@ -28,22 +29,20 @@
 #include <RFM69.h>
 #include <SPI.h> // the RFM69 library uses SPI
 
-//RFM69 radio;
-
-#define myFrequency RF69_915MHZ // or RF69_433MHZ (check your radio)
-#define IS_RFM69HCW   true
 /* for Feather 32u4 */
+#define IS_RFM69HCW   true
 #define RFM69_CS      8
 #define RFM69_IRQ     7
 #define RFM69_IRQN    4  // Pin 7 is IRQ 4!
 #define RFM69_RST     4
 
+#define myFrequency RF69_915MHZ // or RF69_433MHZ (check your radio)
 RFM69 radio = RFM69(RFM69_CS, RFM69_IRQ, IS_RFM69HCW, RFM69_IRQN);
 
-int myNetwork = 214; // radios must share the same network (0-255)
-int myID = 9; // radios should be given unique ID's (0-254, 255 = BROADCAST)
+int myNetwork = 1; // radios must share the same network (0-255)
+int myID = 6; // radios should be given unique ID's (0-254, 255 = BROADCAST)
 
-int hubID = 0; // the receiver for all sensor nodes in this example
+int hubID = 5; // the receiver for all sensor nodes in this example
 
 // instead of sending a string, we can send a struct
 // this struct must be shared between all nodes
@@ -67,9 +66,9 @@ void setup() {
 
   // this example only uses Serial inside setup()
   // because Narcoleptic will stop Serial once used
-  Serial.begin(9600);
-  Serial.println("\nRADIO INITIALIZED");
-  Serial.println("Sending sensor values");
+ // Serial.begin(9600);
+//  Serial.println("\nRADIO INITIALIZED");
+//  Serial.println("Sending sensor values");
 }
 
 void loop() {
@@ -79,20 +78,19 @@ void loop() {
   packet.sensor0 = sensorValue0; // read values from the analog pins
   packet.sensor1 = sensorValue1;
   //packet.sensor2 = analogRead(A2);
-  delay(50);
-  int numberOfRetries = 1;
+  int numberOfRetries = 0;
 
   // send reliable packet to the hub
   // notice the & next to packet when sending a struct
   boolean gotACK = radio.sendWithRetry(hubID,  &packet, sizeof(packet), numberOfRetries);
 
-  if (gotACK) {
-    Serial.println("got acknowledgment");
-  }
-  else {
-    Serial.println("failed acknowledgment");
-  }
-  delay(50);
+//  if (gotACK) {
+//    Serial.println("got acknowledgment");
+//  }
+//  else {
+//    Serial.println("failed acknowledgment");
+//  }
+  delay(2);
   sensorValue0 = analogRead(A0);
   sensorValue1 = analogRead(A1);
 

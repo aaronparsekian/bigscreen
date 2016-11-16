@@ -1,7 +1,8 @@
-/////////////EMG #2////RX RX RX//////////
+/////////////EMG #2//// RX//////////
 ///////////Big Screens 2016 Aaron Parsekian////////////////
 ///////////////////////////
-
+//////917MHz///////
+////DA01I920///
 /*
 
   This sketch demonstrates a simple wireless hub
@@ -45,8 +46,8 @@ RFM69 radio;
 //RFM69 radio = RFM69(RFM69_CS, RFM69_IRQ, IS_RFM69HCW, RFM69_IRQN);
 /* for Feather 32u4 */
 
-int myNetwork = 1; // radios must share the same network (0-255)
-int myID = 5; // radios should be given unique ID's (0-254, 255 = BROADCAST)
+int myNetwork = 214; // radios must share the same network (0-255)
+int myID = 0; // radios should be given unique ID's (0-254, 255 = BROADCAST)
 
 // our pre-defined packet structure
 // this struct must be shared between all nodes
